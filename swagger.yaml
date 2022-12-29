@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: Library Management
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://library-management-ffqr.onrender.com/api/v1
+    variables: {}
+paths:
+  /library:
+    get:
+      tags:
+        - Library
+      summary: Get all books and magazines
+      operationId: Getallbooksandmagazines
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /library/book/{isbn}:
+    parameters:
+      - in: path
+        name: isbn
+        schema:
+          type: string
+        required: true
+        description: isbn of book
+    get:
+      tags:
+        - Library
+      summary: Get a book by isbn
+      operationId: Getabookbyisbn
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /library/magazine/{isbn}:
+    parameters:
+      - in: path
+        name: isbn
+        schema:
+          type: string
+        required: true
+        description: isbn of magazine
+    get:
+      tags:
+        - Library
+      summary: Get a magazine by isbn
+      operationId: Getamagazinebyisbn
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /library/booksMagsAuthor:
+    get:
+      tags:
+        - Library
+      summary: Get books and magazines of an author
+      operationId: Getbooksandmagazinesofanauthor
+      parameters:
+        - name: email
+          in: query
+          description: ""
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: null-walter@echocat.org
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /library/sorted:
+    get:
+      tags:
+        - Library
+      summary: Get books and magazines in sorted order
+      operationId: Getbooksandmagazinesinsortedorder
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /library/addBook:
+    post:
+      tags:
+        - Library
+      summary: Add book
+      operationId: Addbook
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/AddbookRequest"
+                - example:
+                    bookToAdd:
+                      title: Geeta
+                      isbn: 5454-5587-4448
+                      authors: ved-vyas@gmail.com
+                      description: Now I am become death the destroyer of worlds
+            example:
+              bookToAdd:
+                title: Geeta
+                isbn: 5454-5587-4448
+                authors: ved-vyas@gmail.com
+                description: Now I am become death the destroyer of worlds
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /library/addMagazine:
+    post:
+      tags:
+        - Library
+      summary: Add a magazine
+      operationId: Addamagazine
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/AddamagazineRequest"
+                - example:
+                    magazineToAdd:
+                      title: Upnishad
+                      isbn: 1111-11111-1111
+                      authors: ved-vyas@gmail.com
+                      publishedAt: 23.02.2012
+            example:
+              magazineToAdd:
+                title: Upnishad
+                isbn: 1111-11111-1111
+                authors: ved-vyas@gmail.com
+                publishedAt: 23.02.2012
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    AddbookRequest:
+      title: AddbookRequest
+      required:
+        - bookToAdd
+      type: object
+      properties:
+        bookToAdd:
+          allOf:
+            - $ref: "#/components/schemas/BookToAdd"
+            - {}
+      example:
+        bookToAdd:
+          title: Geeta
+          isbn: 5454-5587-4448
+          authors: ved-vyas@gmail.com
+          description: Now I am become death the destroyer of worlds
+    BookToAdd:
+      title: BookToAdd
+      required:
+        - title
+        - isbn
+        - authors
+        - description
+      type: object
+      properties:
+        title:
+          type: string
+        isbn:
+          type: string
+        authors:
+          type: string
+        description:
+          type: string
+      example:
+        title: Geeta
+        isbn: 5454-5587-4448
+        authors: ved-vyas@gmail.com
+        description: Now I am become death the destroyer of worlds
+    AddamagazineRequest:
+      title: AddamagazineRequest
+      required:
+        - magazineToAdd
+      type: object
+      properties:
+        magazineToAdd:
+          allOf:
+            - $ref: "#/components/schemas/MagazineToAdd"
+            - {}
+      example:
+        magazineToAdd:
+          title: Upnishad
+          isbn: 1111-11111-1111
+          authors: ved-vyas@gmail.com
+          publishedAt: 23.02.2012
+    MagazineToAdd:
+      title: MagazineToAdd
+      required:
+        - title
+        - isbn
+        - authors
+        - publishedAt
+      type: object
+      properties:
+        title:
+          type: string
+        isbn:
+          type: string
+        authors:
+          type: string
+        publishedAt:
+          type: string
+      example:
+        title: Upnishad
+        isbn: 1111-11111-1111
+        authors: ved-vyas@gmail.com
+        publishedAt: 23.02.2012
+tags:
+  - name: Misc
+    description: ""
+  - name: Library
+    description: ""
