@@ -2,6 +2,7 @@ const fs = require("fs");
 const { unlink } = require("fs").promises;
 const { parse } = require("csv-parse");
 
+//data structure to store books and magazines from respective csv file
 let magazines = [];
 let books = [];
 
@@ -32,6 +33,7 @@ async function readBooks() {
   }
 }
 
+//fetches books and magazines and store them in respective list
 (async () => {
   await readMagazines();
   await readBooks();
